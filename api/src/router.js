@@ -21,15 +21,15 @@ const storage = multer.diskStorage({
   filename: filename,
 });
 
-const upload = multer({fileFilter: fileFilter, storage: storage});
+const upload = multer({fileFilter, storage});
 
 router.post('/upload', upload.single('photo'), (request, response) => {
-  const error = request['fileValidationError '];
+  const error = request['fileValidationError'];
   if (error) {
-    response.status(400).json({error});
+    return response.status(400).json({error});
   }
 
-  response.status(201).json({success: true});
+  return response.status(201).json({success: true});
 });
 
 module.exports = router;
